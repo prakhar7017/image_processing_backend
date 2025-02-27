@@ -2,6 +2,7 @@ import express from "express";
 
 import router from "./routes/api";
 import connectDB from "./config/db";
+const PORT=process.env.PORT || 3000;
 
 const app = express();
 connectDB();
@@ -16,4 +17,4 @@ app.post("/webhook", (req, res) => {
 });
 
 
-app.listen(3000, () => console.log("Server running on port 3000"));
+app.listen(PORT, () => console.log("Server running on port 3000"));
