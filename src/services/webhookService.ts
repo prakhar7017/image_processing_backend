@@ -3,7 +3,7 @@ import ProcessingRequest from "../models/processingRequest.model";
 
 class WebhookService {
   private maxRetries = 3;
-  private retryDelay = 5000; // 5 seconds
+  private retryDelay = 5000;
 
   public async sendWebhook(requestId: string): Promise<void> {
     const request = await ProcessingRequest.findOne({ requestId });

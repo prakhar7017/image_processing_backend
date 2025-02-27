@@ -1,4 +1,4 @@
-import fs from "fs/promises"; // Use async fs module
+import fs from "fs/promises"; 
 import path from "path";
 import { IProcessingRequest } from "../models/processingRequest.model";
 
@@ -7,7 +7,7 @@ export const generateCSV = async (request: IProcessingRequest): Promise<string> 
     const outputDir = path.join(__dirname, "../../output");
     const filePath = path.join(outputDir, `${request.requestId}.csv`);
 
-    // Ensure the output directory exists
+    
     await fs.mkdir(outputDir, { recursive: true });
 
     const csvData = ["S. No.,Product Name,Input Image Urls,Output Image Urls"];

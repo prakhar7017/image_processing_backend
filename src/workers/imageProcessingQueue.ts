@@ -42,7 +42,6 @@ class ImageProcessingQueue {
         request.completedAt = new Date();
         await request.save();
 
-        // Trigger webhook
         WebhookService.sendWebhook(requestId);
       },
       { connection }

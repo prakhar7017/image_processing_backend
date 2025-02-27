@@ -16,7 +16,7 @@ class StatusController {
       if (request.status === "COMPLETED") {
         const csvFilePath = await generateCSV(request);
 
-        // Check if file exists before downloading
+        
         if (fs.existsSync(csvFilePath)) {
           res.setHeader("Content-Disposition", `attachment; filename=result-${request.requestId}.csv`);
           res.setHeader("Content-Type", "csv");

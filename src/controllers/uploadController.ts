@@ -12,14 +12,14 @@ class UploadController {
       }
 
       console.log("File:", req.file);
-      console.log("Body:", req.body); // ✅ Should now contain webhookUrl
+      console.log("Body:", req.body); 
 
       try {
         if (!req.file) {
           return res.status(400).json({ message: "No file uploaded" });
         }
 
-        const webhookUrl = req.body.webhookUrl; // ✅ Correctly extract from req.body
+        const webhookUrl = req.body.webhookUrl;
         const requestId = await CSVService.processCSV(req.file.path, webhookUrl);
         return res.status(200).json({ requestId, message: "Processing started." });
       } catch (error: any) {
