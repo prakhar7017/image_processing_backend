@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "npx rimraf dist",
     "build": "npm run clean && tsc",
-    "dev": "ts-node src/app.ts",
+    "dev": "NODE_OPTIONS='--max-old-space-size=4096' ts-node src/app.ts",
     "start": "npm run build && node dist/app.js"
   },
   "keywords": [],
