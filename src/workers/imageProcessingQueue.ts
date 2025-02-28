@@ -2,16 +2,19 @@ import WebhookService from "../services/webhookService";
 import ImageProcessor from "../services/imageProcessor";
 import ProcessingRequest from "../models/processingRequest.model";
 import { Queue, Worker, Job } from "bullmq";
-import { createClient } from "redis";
 import imageService from "../services/imageService";
 
-const connection = { host: "127.0.0.1", port: 6379 };
+
+const connection = {
+  host: process.env.REDIS_HOST || "127.0.0.1",
+  port: Number(process.env.REDIS_PORT) || 6379,
+};
 
 class ImageProcessingQueue {
   private queue: Queue;
 
   constructor() {
-    this.queue = new Queue("imageQueue", { connection });
+    this.queue = new Queue("imageQueue", { connection }); 
     this.processQueue();
   }
 
@@ -33,7 +36,7 @@ class ImageProcessingQueue {
         for (const product of request.products) {
           for (let i = 0; i < product.inputImageUrls.length; i++) {
             const outputImage = await ImageProcessor.compressImage(product.inputImageUrls[i]);
-            const outputImageUrl=await imageService.uploadImage(outputImage);
+            const outputImageUrl = await imageService.uploadImage(outputImage);
             product.outputImageUrls.push(outputImageUrl);
           }
         }
@@ -44,7 +47,7 @@ class ImageProcessingQueue {
 
         WebhookService.sendWebhook(requestId);
       },
-      { connection }
+      { connection }  // ✅ Pass connection options
     );
   }
 }
